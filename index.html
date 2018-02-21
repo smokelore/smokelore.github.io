@@ -1,12 +1,17 @@
 <!DOCTYPE html>
 
 <html>
+
+<head>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.js"></script>
+</head>
+
 <body>
     <h1>smokelore</h1>
     <h3>creative coder, new media artist, Unity developer, game developer</h3>
     <p>
         <a href="http://sebastianmonroy.com">          portfolio</a> //
-        <a href="http://instagram.com/smokelore">      instagram</a> //
+        <a href="http://instagram.com/smokelore">      instagram</a> (<strong class="instagram"></strong>) //
         <a href="http://twitter.com/smokelore">        twitter</a> //
         <a href="http://medium.com/@smokelore">        medium</a> //
         <a href="http://github.com/smokelore">         github</a> //
@@ -15,5 +20,30 @@
     <p>
         more soon...
     </p>
+
+    <div class="container">
+    <h3></h3>
+    </div>
+
+
+    <script type="text/javascript">
+        var token = '2218097449.1677ed0.20499469391c44f8a13368a73388820e';
+
+        $.ajax({
+          url: 'https://api.instagram.com/v1/users/self',
+          dataType: 'jsonp',
+          type: 'GET',
+          data: {access_token: token},
+          success: function(data){
+              var follows = data['data']['counts']['followed_by'];
+              $(".instagram").text(follows);
+          },
+          error: function(data){
+              console.log(data);
+          }
+        });
+    </script>
+
 </body>
+
 </html>
