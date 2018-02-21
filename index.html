@@ -11,7 +11,7 @@
     <h3>creative coder, new media artist, Unity developer, game developer</h3>
     <p>
         <a href="http://sebastianmonroy.com">          portfolio</a> //
-        <a href="http://instagram.com/smokelore">      instagram</a> (<strong class="instagram"></strong>) //
+        <a href="http://instagram.com/smokelore">      instagram</a> (<strong class="instagram_followers"></strong>, <strong class="instagram_recent_likes"></strong>) //
         <a href="http://twitter.com/smokelore">        twitter</a> //
         <a href="http://medium.com/@smokelore">        medium</a> //
         <a href="http://github.com/smokelore">         github</a> //
@@ -35,8 +35,27 @@
           type: 'GET',
           data: {access_token: token},
           success: function(data){
-              var follows = data['data']['counts']['followed_by'];
-              $(".instagram").text(follows);
+              var follows = data.data.counts.followed_by;
+              $(".instagram_followers").text(follows);
+          },
+          error: function(data){
+              console.log(data);
+          }
+        });
+    </script>
+
+
+    <script type="text/javascript">
+        var token = '2218097449.1677ed0.20499469391c44f8a13368a73388820e';
+
+        $.ajax({
+          url: 'https://api.instagram.com/v1/users/self/media/recent',
+          dataType: 'jsonp',
+          type: 'GET',
+          data: {"access_token": token, "count": 1},
+          success: function(data){
+              var likes = data.data[0].likes.count;
+              $(".instagram_recent_likes").text(likes);
           },
           error: function(data){
               console.log(data);
